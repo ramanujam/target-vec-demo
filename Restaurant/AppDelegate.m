@@ -12,6 +12,7 @@
 #import "MSSlidingPanelController.h"
 #import "ThemeManager.h"
 #import <Leanplum/Leanplum.h>
+#import <Taplytics/Taplytics.h>
 
 
 static NSInteger secondsInHour = 60;
@@ -51,6 +52,8 @@ DEFINE_VAR_STRING(welcomeMessage, @"Welcome to Leanplum!");
     [Leanplum allowInterfaceEditing];
     [Leanplum start];
     [Leanplum track:@"Launch"];
+
+    [Taplytics startTaplyticsAPIKey:@"d9ba01a31e8d6d3d3de5a6b079c48107d396556c"];
 
     
     return YES;
