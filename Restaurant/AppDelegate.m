@@ -13,7 +13,7 @@
 #import "ThemeManager.h"
 #import <Leanplum/Leanplum.h>
 #import <Taplytics/Taplytics.h>
-
+#import <Optimizely/Optimizely.h>
 
 static NSInteger secondsInHour = 60;
 
@@ -54,10 +54,19 @@ DEFINE_VAR_STRING(welcomeMessage, @"Welcome to Leanplum!");
     [Leanplum track:@"Launch"];
 
     [Taplytics startTaplyticsAPIKey:@"d9ba01a31e8d6d3d3de5a6b079c48107d396556c"];
-
-    
+    [Optimizely enableEditor];
+    [Optimizely startOptimizelyWithAPIToken:
+     @"AANQPCwBWPR4GRG-tFalOEFGRwbZwH1Y~5950040050" launchOptions:launchOptions];
     return YES;
 }
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+    if ([Optimizely handleOpenURL:url]) {
+        return YES;
+    }
+    return NO;
+}
+
 
 + (AppDelegate *)sharedDelegate {
     return (AppDelegate *)([UIApplication sharedApplication]).delegate;
